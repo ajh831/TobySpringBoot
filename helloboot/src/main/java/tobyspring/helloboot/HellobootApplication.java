@@ -22,7 +22,8 @@ public class HellobootApplication {
 	public static void main(String[] args) {
 		// 스프링 컨테이너 생성
 		GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
-		applicationContext.registerBean(HelloController.class);
+		applicationContext.registerBean(HelloController.class); // 빈 등록
+		applicationContext.registerBean(SimpleHelloService.class); // 빈 등록
 		applicationContext.refresh(); // 컨테이너 초기화(빈 오브젝트 생성)
 
 		ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
