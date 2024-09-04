@@ -28,6 +28,15 @@ import java.io.IOException;
 @Configuration
 @ComponentScan // 여러가지 정보에 컨테이너를 구성하는 데 필요한 hint들을 넣을 수 있음
 public class HellobootApplication {
+	@Bean
+	public ServletWebServerFactory servletContainer() {
+		return new TomcatServletWebServerFactory();
+	}
+
+	@Bean
+	public DispatcherServlet dispatcherServlet() {
+		return new DispatcherServlet();
+	}
 
 	public static void main(String[] args) {
 		// 스프링 컨테이너 생성
@@ -36,11 +45,12 @@ public class HellobootApplication {
 			protected void onRefresh() {
 				super.onRefresh(); // 생략 X
 
-				ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+				ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
+				DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
+
 				WebServer webServer = serverFactory.getWebServer(servletContext -> {
-					servletContext.addServlet("dispatcherServlet",
-							new DispatcherServlet(this) // DispatcherServlet은 WebApplication 컨텍스트 타입을 사용해야 됨
-					).addMapping("/*");
+					servletContext.addServlet("dispatcherServlet",dispatcherServlet)
+							.addMapping("/*");
 				}); // 웹서버 생성
 				webServer.start(); // Tomcat Servelet Container 동작
 			}
