@@ -10,6 +10,7 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
@@ -25,15 +26,8 @@ import org.springframework.web.servlet.DispatcherServlet;
 import java.io.IOException;
 
 @Configuration
+@ComponentScan // 여러가지 정보에 컨테이너를 구성하는 데 필요한 hint들을 넣을 수 있음
 public class HellobootApplication {
-	@Bean
-	public HelloController helloController(HelloService helloService) {
-		return new HelloController(helloService);
-	}
-	@Bean
-	public HelloService helloService() {
-		return new SimpleHelloService();
-	}
 
 	public static void main(String[] args) {
 		// 스프링 컨테이너 생성
