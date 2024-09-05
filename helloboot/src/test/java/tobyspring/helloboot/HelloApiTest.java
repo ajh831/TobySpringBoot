@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HelloApiTest {
     @Test
-    public void helloApi() throws Exception {
+    public void helloApi() {
         // http localhost:8080/hello?name=Spring
         TestRestTemplate rest = new TestRestTemplate(); // RestTemplate : api 요청을 호출해서 응답을 가져와서 사용할 수 있음
 
@@ -25,5 +25,15 @@ public class HelloApiTest {
         assertThat(res.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE)).startsWith(MediaType.TEXT_PLAIN_VALUE);
         // body Hello Spring
         assertThat(res.getBody()).isEqualTo("Hello Spring");
+    }
+
+    @Test
+    public void failshelloApi() {
+        TestRestTemplate rest = new TestRestTemplate(); // RestTemplate : api 요청을 호출해서 응답을 가져와서 사용할 수 있음
+
+        ResponseEntity<String> res
+                = rest.getForEntity("http://localhost:8080/hello?name=", String.class, "Spring");
+
+        assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
