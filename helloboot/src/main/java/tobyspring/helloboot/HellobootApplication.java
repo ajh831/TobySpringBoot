@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -28,34 +29,17 @@ import java.io.IOException;
 @Configuration
 @ComponentScan // 여러가지 정보에 컨테이너를 구성하는 데 필요한 hint들을 넣을 수 있음
 public class HellobootApplication {
-	@Bean
-	public ServletWebServerFactory servletContainer() {
-		return new TomcatServletWebServerFactory();
-	}
-
-	@Bean
-	public DispatcherServlet dispatcherServlet() {
-		return new DispatcherServlet();
-	}
+//	@Bean
+//	public ServletWebServerFactory servletContainer() {
+//		return new TomcatServletWebServerFactory();
+//	}
+//
+//	@Bean
+//	public DispatcherServlet dispatcherServlet() {
+//		return new DispatcherServlet();
+//	}
 
 	public static void main(String[] args) {
-		// 스프링 컨테이너 생성
-		AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
-			@Override
-			protected void onRefresh() {
-				super.onRefresh(); // 생략 X
-
-				ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
-				DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
-
-				WebServer webServer = serverFactory.getWebServer(servletContext -> {
-					servletContext.addServlet("dispatcherServlet",dispatcherServlet)
-							.addMapping("/*");
-				}); // 웹서버 생성
-				webServer.start(); // Tomcat Servelet Container 동작
-			}
-		};
-		applicationContext.register(HellobootApplication.class);
-		applicationContext.refresh(); // 컨테이너 초기화(빈 오브젝트 생성)
+		SpringApplication.run(HellobootApplication.class, args);
 	}
 }
