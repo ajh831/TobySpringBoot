@@ -26,20 +26,11 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 import java.io.IOException;
 
-@Configuration
-@ComponentScan // 여러가지 정보에 컨테이너를 구성하는 데 필요한 hint들을 넣을 수 있음
+@MySpringBootAnnotation
 public class HellobootApplication {
-	@Bean
-	public ServletWebServerFactory servletContainer() {
-		return new TomcatServletWebServerFactory();
-	}
-
-	@Bean
-	public DispatcherServlet dispatcherServlet() {
-		return new DispatcherServlet();
-	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(HellobootApplication.class, args);
 	}
+
 }
