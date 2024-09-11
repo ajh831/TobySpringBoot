@@ -1,5 +1,6 @@
 package tobyspring.config.autoconfig;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -11,6 +12,7 @@ import tobyspring.config.MyAutoConfiguration;
 @ConditionalMyOnClass("io.undertow.Undertow")
 public class UndertowWebServerConfig {
     @Bean("undertowWebServerFactory")
+    @ConditionalOnMissingBean
     public ServletWebServerFactory servletWebServerFactory() {
         return new UndertowServletWebServerFactory();
     }

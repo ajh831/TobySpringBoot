@@ -16,17 +16,18 @@ java {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
-	implementation ('org.springframework.boot:spring-boot-starter-web') {
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
-		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-jetty'
-	}
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation ('org.springframework.boot:spring-boot-starter-web') {
+//		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+//		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-jetty'
+//	}
 //	implementation 'org.springframework.boot:spring-boot-starter-jetty'
-	implementation 'org.springframework.boot:spring-boot-starter-undertow'
+//	implementation 'org.springframework.boot:spring-boot-starter-undertow'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
