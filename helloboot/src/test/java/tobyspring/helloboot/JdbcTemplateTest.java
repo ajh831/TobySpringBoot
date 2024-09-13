@@ -10,7 +10,6 @@ import org.springframework.test.annotation.Rollback;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @HellobootTest
-@Rollback(false)
 public class JdbcTemplateTest {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -22,15 +21,6 @@ public class JdbcTemplateTest {
 
     @Test
     public void insertAndQuery() {
-        jdbcTemplate.update("INSERT INTO hello VALUES (?, ?)", "Toby", 3);
-        jdbcTemplate.update("INSERT INTO hello VALUES (?, ?)", "Spring", 1);
-
-        Long count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM hello", Long.class);
-        assertThat(count).isEqualTo(2);
-    }
-
-    @Test
-    public void insertAndQuery2() {
         jdbcTemplate.update("INSERT INTO hello VALUES (?, ?)", "Toby", 3);
         jdbcTemplate.update("INSERT INTO hello VALUES (?, ?)", "Spring", 1);
 
