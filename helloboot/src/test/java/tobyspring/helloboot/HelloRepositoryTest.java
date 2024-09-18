@@ -13,11 +13,6 @@ public class HelloRepositoryTest {
     @Autowired
     HelloRepository helloRepository;
 
-    @BeforeEach
-    void init() {
-        jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS hello(name varchar(50) primary key, count int)");
-    }
-
     @Test
     public void findHelloFailed() {
         Assertions.assertThat(helloRepository.findHello("Toby")).isNull();
